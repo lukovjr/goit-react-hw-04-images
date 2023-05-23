@@ -1,41 +1,32 @@
-import { Component } from "react";
+import { useState } from "react";
 import PropTypes from 'prop-types';
 import { Item, Image } from './ImageGalleryItem.styled';
 import { Modal } from '../Modal';
 
-export class ImageGalleryItem extends Component {
-    state = {
-        isShowModal: false,
-    };
+export const ImageGalleryItem = ({ url, alt, largeImageURL }) => {
+    const [isShowModal, setIsShowModal] = useState(false);
 
-    toggleModal = () => {
-        this.setState(({isShowModal}) => ({
-            isShowModal: !isShowModal
-        }));
-    }
-    
-    render() {
-        const { url, alt, largeImageURL } = this.props
-        return (
-            <>
-            <Item onClick={this.toggleModal}>
+    const toggleModal = () => setIsShowModal(prev => !prev);
+
+    return (
+        <>
+            <Item onClick={toggleModal}>
                 <Image
                     src={url}
                     alt={alt}
                     loading="lazy" />
-                </Item>
-                {this.state.isShowModal &&
-                    <Modal onClose={this.toggleModal}>
-                        <img alt={alt} src={largeImageURL}/>
-                    </Modal>
-                }
-            </>
-        )
-    }
+            </Item>
+            {isShowModal &&
+                <Modal onClose={toggleModal}>
+                    <img alt={alt} src={largeImageURL} />
+                </Modal>
+            }
+        </>
+    );
 }
 
 ImageGalleryItem.propTypes = {
     url: PropTypes.string.isRequired,
     alt: PropTypes.string.isRequired,
-    largeImage: PropTypes.string.isRequired,
-}
+    largeImageURL: PropTypes.string.isRequired,
+};

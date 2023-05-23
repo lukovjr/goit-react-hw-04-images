@@ -46,7 +46,7 @@ export const Button = styled.button`
     &:hover {
         opacity: 1;
     }
-`
+`;
 
 export const SearchIcon = styled(FcSearch)`
     transition: var(--transition);
@@ -81,4 +81,4 @@ export const Input = styled.input`
         font: inherit;
         font-size: 18px;
 }
-`
+`;
